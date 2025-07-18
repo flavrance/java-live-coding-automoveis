@@ -12,8 +12,13 @@ import java.util.List;
 
 @Service
 public class AutomovelService {
-    @Autowired
-    private AutomovelRepository automovelRepository;
+
+    private final AutomovelRepository automovelRepository;
+
+    public AutomovelService(AutomovelRepository automovelRepository) {
+        this.automovelRepository = automovelRepository;
+    }
+
 
     public Automovel cadastraAutomovel (Automovel automovel) throws Exception {
 
@@ -25,7 +30,7 @@ public class AutomovelService {
                 .modelo(automovel.getModelo())
                 .dataCadastro(LocalDate.now()).build();
 
-        AutomovelModel saved = automovelRepository.saveAndFlush(model);
+        AutomovelModel saved = automovelRepository.save(model);
 
         Automovel result = Automovel.builder()
                 .id(saved.getId())

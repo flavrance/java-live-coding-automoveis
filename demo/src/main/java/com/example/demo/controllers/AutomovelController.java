@@ -5,24 +5,24 @@ import com.example.demo.services.AutomovelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.ArrayList;
 
-@Controller
+@RestController
 @RequestMapping("automoveis")
 public class AutomovelController {
 
     @Autowired
     private AutomovelService automovelService;
-    @GetMapping(path = "/", produces = "application/json")
+    @GetMapping(produces = "application/json")
     public ResponseEntity<ArrayList<Automovel>> getAutomoveis() {
         return ResponseEntity.ok(automovelService.getAll());
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity cadastraAutomovel (@RequestBody Automovel automovel) {
         Automovel result = null;
         try {
